@@ -50,7 +50,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ================= MARQUEE (БЕГУЩАЯ СТРОКА) - ОСТАВЛЕНО БЕЗ ИЗМЕНЕНИЙ ================= */
+        /* ================= MARQUEE (БЕГУЩАЯ СТРОКА) ================= */
         .marquee-container {
             width: 100%;
             z-index: 100;
@@ -92,14 +92,13 @@
             }
         }
 
-        /* ================= БЛОК 1: ПРЕМИУМ ДИЗАЙН (MAX ПРОКАЧКА) - ОСТАВЛЕНО БЕЗ ИЗМЕНЕНИЙ ================= */
+        /* ================= БЛОК 1: ПРЕМИУМ ДИЗАЙН ================= */
         .hero-master {
             position: relative;
             width: 100%;
             min-height: 100vh;
             background-color: #07070A;
             background-image: url('images/bg-desktop.png');
-            /* ФОН ДЛЯ ПК */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -417,7 +416,7 @@
             }
         }
 
-        /* ================= ОБЩИЕ СТИЛИ ДЛЯ НОВЫХ БЛОКОВ ================= */
+        /* ================= ОБЩИЕ СТИЛИ ================= */
         .section {
             padding: 80px 20px;
             max-width: 1100px;
@@ -439,7 +438,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* ================= БЛОК 2: KURS HAQIDA (АККОРДЕОН В СТИЛЕ DARK/GOLD) ================= */
+        /* ================= БЛОК 2: KURS HAQIDA ================= */
         .course-section {
             max-width: 900px;
             margin: 0 auto;
@@ -567,7 +566,101 @@
             }
         }
 
-        /* ================= БЛОК 4: LOYIHALAR (КАРУСЕЛЬ) ================= */
+        /* ================= БЛОК 3: DARS JARAYONI (ВИДЕО) ================= */
+        .video-section {
+            max-width: 1000px;
+            padding-bottom: 60px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            /* Формат 16:9 */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            background: #000;
+            transition: var(--transition);
+        }
+
+        .video-wrapper:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.15);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-btn-wrapper {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .video-btn {
+            background: linear-gradient(180deg, #FDE68A 0%, #F59E0B 100%);
+            border: 1px solid #FEF3C7;
+            border-radius: 12px;
+            padding: 20px 40px;
+            color: #451A03;
+            font-weight: 900;
+            font-size: 18px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            min-width: 300px;
+        }
+
+        .video-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Мобильная версия для видео блока - Максимальный упор */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-bottom: 30px;
+            }
+
+            .video-btn-wrapper {
+                width: 100%;
+                padding: 0 10px;
+                /* Чтобы кнопка не прилипала к краям экрана */
+            }
+
+            .video-btn {
+                width: 100%;
+                /* На мобилке кнопка на всю ширину */
+                max-width: none;
+                padding: 22px 20px;
+                font-size: 17px;
+            }
+        }
+
+        /* ================= БЛОК 4: LOYIHALAR ================= */
         .portfolio-section {
             overflow: hidden;
             padding-bottom: 60px;
@@ -579,12 +672,8 @@
             overflow-x: auto;
             padding: 20px 0 40px;
             scroll-snap-type: x mandatory;
-
-            /* Улучшенный скролл для Firefox */
             scrollbar-width: thin;
             scrollbar-color: var(--primary) rgba(255, 255, 255, 0.05);
-
-            /* Курсор мыши в виде "руки" для перетаскивания */
             cursor: grab;
         }
 
@@ -592,25 +681,19 @@
             cursor: grabbing;
         }
 
-        /* Улучшенный скролл для Chrome, Safari, Edge */
         .portfolio-scroll::-webkit-scrollbar {
             height: 10px;
-            /* Сделали чуть толще для удобства */
         }
 
         .portfolio-scroll::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
-            /* Полупрозрачная дорожка */
             border-radius: 10px;
             margin: 0 15px;
-            /* Аккуратные отступы по бокам */
         }
 
         .portfolio-scroll::-webkit-scrollbar-thumb {
-            /* Премиальный золотой градиент */
             background: linear-gradient(90deg, #F59E0B, #FDE68A, #F59E0B);
             border-radius: 10px;
-            /* Эффект "рамки" цвета фона, чтобы скролл казался тоньше и изящнее */
             border: 3px solid var(--bg-body);
         }
 
@@ -629,7 +712,6 @@
             box-shadow: var(--shadow-md);
             transition: var(--transition);
             position: relative;
-            /* Предотвращаем выделение картинок при перетаскивании */
             user-select: none;
         }
 
@@ -646,18 +728,16 @@
             object-fit: contain;
             aspect-ratio: 10/4;
             pointer-events: none;
-            /* Чтобы картинка не мешала перетаскиванию */
         }
 
         @media (max-width: 576px) {
             .portfolio-card {
                 min-width: 330px;
-                /* Немного уменьшил для мобильных, чтобы было видно край следующей карточки */
                 width: 330px;
             }
         }
 
-        /* ================= БЛОК 5: НОВАЯ ФОРМА РЕГИСТРАЦИИ (ПО ВАШЕМУ ТЗ) ================= */
+        /* ================= БЛОК 5: НОВАЯ ФОРМА РЕГИСТРАЦИИ ================= */
         .quiz-container {
             max-width: 850px;
             margin: 0 auto;
@@ -745,7 +825,6 @@
             outline: none;
         }
 
-        /* Select dropdown arrow */
         select.custom-input {
             padding-right: 45px;
             cursor: pointer;
@@ -820,7 +899,7 @@
             }
         }
 
-        /* ================= МОДАЛЬНОЕ ОКНО (THANK YOU) ================= */
+        /* ================= МОДАЛЬНОЕ ОКНО ================= */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -899,7 +978,6 @@
 
 <body>
 
-    <!-- Бегущая строка (Оригинальная) -->
     <div class="marquee-container">
         <div class="marquee">
             <span class="marquee-inner">Ro’yxatdan o’tish <i class="ph-fill ph-star"></i> KUN OXIRIGACHA 500 000 SO'M
@@ -909,25 +987,18 @@
         </div>
     </div>
 
-    <!-- Блок 1: Главный экран (ОРИГИНАЛЬНЫЙ - НЕ ИЗМЕНЕН) -->
+    <!-- Блок 1 -->
     <section class="hero-master">
-        <!-- Световой блик на заднем фоне для глубины -->
         <div class="hero-glow"></div>
-
         <div class="container">
-
-            <!-- Левая часть -->
             <div class="hm-left">
-                <!-- 1. Текстовая часть (Сверху на мобилке) -->
                 <div class="hm-text-top">
                     <div class="hm-badge"><i class="ph-fill ph-lightning"></i> 40 kunlik Biznes SMM kursi</div>
                     <h1>Biznesni <span class="gold">0 DAN</span> INSTAGRAMDA<br> <span
                             class="gold">rivojlantirish</span> kursi</h1>
                 </div>
 
-                <!-- 2. Плашки и Кнопка (Снизу на мобилке, поверх фото) -->
                 <div class="hm-actions">
-                    <!-- Стеклянные теги (Улучшенный дизайн) -->
                     <div class="hero-tags">
                         <span class="hero-tag"><i class="ph-fill ph-briefcase"></i> Savmedia.uz Asoschisi</span>
                         <span class="hero-tag"><i class="ph-fill ph-star"></i> 4+ Yillik Tajriba</span>
@@ -941,8 +1012,6 @@
                             <div class="hm-btn-text">Ro’yxatdan o’tish</div>
                         </a>
                     </div>
-
-                    <!-- Текст призыва и кнопка -->
                     <p
                         style="color:#F8D174; font-weight:600; text-align:center; margin-top:15px; max-width:420px; font-size: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
                         Hoziroq ro’yxatdan o’tib, kurs uchun 500.000 so’mlik chegirmaga ega bo’ling! 🎁
@@ -950,49 +1019,29 @@
                 </div>
             </div>
 
-            <!-- Правая часть (Посередине на мобилке) -->
             <div class="hm-right">
-                <!-- ВНИМАНИЕ: Сюда ваше фото без фона -->
                 <img src="images/savlat.png" alt="Savlat Dabilov" class="expert">
             </div>
-
         </div>
     </section>
 
-    <!-- Блок 4: Проекты (КАРУСЕЛЬ) -->
+    <!-- Блок 4: Проекты -->
     <section class="section portfolio-section">
         <h2 class="title-h2">Biz ishlagan <span>loyihalar</span></h2>
 
         <div class="portfolio-scroll">
-            <!-- Вставьте сюда ваши квадратные картинки из инстаграма (как на скриншоте) -->
-            <div class="portfolio-card">
-                <img src="images/1.webp" alt="Loyiha 1">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/2.webp" alt="Loyiha 2">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/3.webp" alt="Loyiha 3">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/4.webp" alt="Loyiha 4">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/5.webp" alt="Loyiha 5">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/6.webp" alt="Loyiha 6">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/7.webp" alt="Loyiha 7">
-            </div>
-            <div class="portfolio-card">
-                <img src="images/8.webp" alt="Loyiha 8">
-            </div>
+            <div class="portfolio-card"><img src="images/1.webp" alt="Loyiha 1"></div>
+            <div class="portfolio-card"><img src="images/2.webp" alt="Loyiha 2"></div>
+            <div class="portfolio-card"><img src="images/3.webp" alt="Loyiha 3"></div>
+            <div class="portfolio-card"><img src="images/4.webp" alt="Loyiha 4"></div>
+            <div class="portfolio-card"><img src="images/5.webp" alt="Loyiha 5"></div>
+            <div class="portfolio-card"><img src="images/6.webp" alt="Loyiha 6"></div>
+            <div class="portfolio-card"><img src="images/7.webp" alt="Loyiha 7"></div>
+            <div class="portfolio-card"><img src="images/8.webp" alt="Loyiha 8"></div>
         </div>
     </section>
 
-    <!-- Блок 2: Программа курса (АККОРДЕОН В СТИЛЕ DARK/GOLD) -->
+    <!-- Блок 2: Программа курса -->
     <section class="section reveal course-section" id="course-program">
         <div style="text-align: left;">
             <div class="course-badge">KURS HAQIDA</div>
@@ -1050,6 +1099,26 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: DARS JARAYONI (НОВЫЙ БЛОК С ВИДЕО) -->
+    <section class="section reveal video-section" id="process">
+        <h2 class="title-h2">Dars <span>jarayoni</span></h2>
+
+        <div class="video-grid">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/5NeEa2kqdL0?si=NhNmXDBTmy_rJOqZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/UBxi8g_Fg4k?si=v-SXqL579_4lm8PB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="video-btn-wrapper">
+            <a href="#quiz-section" class="video-btn">
+                Ro’yxatdan o’tish
+            </a>
         </div>
     </section>
 
@@ -1124,7 +1193,7 @@
                             min="10" max="99">
                     </div>
 
-                    <!-- Savol 7 (To'liq kenglikda) -->
+                    <!-- Savol 7 -->
                     <div class="input-group full-width">
                         <label>Nomeringiz:</label>
                         <input type="tel" id="userPhone" class="custom-input" placeholder="+998 (__) ___-__-__"
@@ -1139,7 +1208,7 @@
         </div>
     </section>
 
-    <!-- Thank You Modal (По вашему тексту) -->
+    <!-- Thank You Modal -->
     <div class="modal-overlay" id="thankYouModal">
         <div class="modal-content">
             <i class="ph-fill ph-check-circle success-icon"></i>
@@ -1164,7 +1233,6 @@
     </div>
 
     <script>
-        // Анимация при скролле
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -1176,7 +1244,6 @@
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
         revealElements.forEach(el => revealOnScroll.observe(el));
 
-        // Аккордеон
         function initCourseAccordion() {
             const headers = document.querySelectorAll('.accordion-header');
             headers.forEach(header => {
@@ -1190,7 +1257,6 @@
         }
         window.addEventListener('load', initCourseAccordion);
 
-        // Маска для телефона
         const phoneInput = document.getElementById('userPhone');
         phoneInput.addEventListener('input', function (e) {
             let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
@@ -1222,7 +1288,7 @@
             };
 
             const text = `
-🔥 <b>Yangi ariza (Biznes SMM)</b>
+🔥 <b>Yangi ariza (Target)</b>
 
 👤 <b>Ism:</b> ${data.userName}
 🎂 <b>Yosh:</b> ${data.userAge}
@@ -1255,7 +1321,6 @@
 
         function closeModal() { modal.classList.remove('show'); }
 
-        // ================= DRAG-TO-SCROLL ДЛЯ КАРУСЕЛИ ПРОЕКТОВ =================
         const slider = document.querySelector('.portfolio-scroll');
         let isDown = false;
         let startX;
@@ -1264,7 +1329,6 @@
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             slider.style.cursor = 'grabbing';
-            // Отключаем плавную привязку (snap) во время ручного перетаскивания
             slider.style.scrollSnapType = 'none';
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
@@ -1279,7 +1343,6 @@
         slider.addEventListener('mouseup', () => {
             isDown = false;
             slider.style.cursor = 'grab';
-            // Включаем обратно привязку к карточкам после отпускания мыши
             slider.style.scrollSnapType = 'x mandatory';
         });
 
@@ -1287,7 +1350,7 @@
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2; // Цифра 2 - это скорость прокрутки
+            const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
         });
     </script>
