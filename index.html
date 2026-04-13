@@ -974,69 +974,6 @@
             }
         }
 
-        /* ================= МОДАЛЬНОЕ ОКНО ================= */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .modal-overlay.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            padding: 50px 40px;
-            border-radius: 24px;
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 25px 50px rgba(245, 158, 11, 0.1);
-            position: relative;
-        }
-
-        .modal-content i.success-icon {
-            font-size: 70px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4));
-        }
-
-        .tg-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #2AABEE;
-            color: white;
-            padding: 18px;
-            border-radius: 12px;
-            font-weight: 800;
-            text-decoration: none;
-            margin-top: 25px;
-            transition: 0.3s;
-            font-size: 16px;
-        }
-
-        .tg-btn:hover {
-            background: #229ED9;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(42, 171, 238, 0.3);
-        }
-
         /* ================= АНИМАЦИИ ================= */
         .reveal {
             opacity: 0;
@@ -1296,30 +1233,6 @@
         </div>
     </section>
 
-    <!-- Thank You Modal -->
-    <div class="modal-overlay" id="thankYouModal">
-        <div class="modal-content">
-            <i class="ph-fill ph-check-circle success-icon"></i>
-            <h2 style="font-size:30px; font-weight:900; margin-bottom:15px; color:var(--text-dark);">Tabriklaymiz!</h2>
-            <p style="color:var(--text-dark); font-size:16px; margin-bottom:25px; line-height:1.5; font-weight: 500;">
-                Siz ro’yxatdan o’tdingiz. Yaqin daqiqa ichida siz bilan bog’lanamiz.
-            </p>
-
-            <p style="color:var(--text-gray); font-size:14px; margin-bottom:15px; line-height:1.4;">
-                Agar hoziroq biz bilan bog’lanmoqchi bo’lsangiz, pastdagi TELEGRAM tugmasini bosib, bizga telegram
-                orqali yozing.
-            </p>
-
-            <a href="https://t.me/umarali_ua" target="_blank" class="tg-btn">
-                <i class="ph-fill ph-telegram-logo" style="font-size:26px;"></i> Telegram: t.me/umarali_ua
-            </a>
-
-            <button onclick="closeModal()"
-                style="margin-top:25px; background:none; border:none; color:#52525B; font-weight:600; cursor:pointer; font-size: 14px; text-transform: uppercase;">Oynani
-                yopish</button>
-        </div>
-    </div>
-
     <script>
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = new IntersectionObserver((entries, observer) => {
@@ -1356,7 +1269,6 @@
 
         const form = document.getElementById('leadForm');
         const submitBtn = document.getElementById('submitBtn');
-        const modal = document.getElementById('thankYouModal');
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -1396,8 +1308,7 @@
                 .then(res => res.json())
                 .then(resData => {
                     if (resData.ok) {
-                        modal.classList.add('show');
-                        form.reset();
+                        window.location.href = 'thank-you.html';
                     } else { alert('Yuborishda xato yuz berdi. (Bot Token va Chat ID larni tekshiring)'); }
                 })
                 .catch(err => { alert('Tarmoq xatosi! Internetingizni tekshiring.'); console.error(err); })
@@ -1406,8 +1317,6 @@
                     submitBtn.disabled = false;
                 });
         });
-
-        function closeModal() { modal.classList.remove('show'); }
 
         const portfolioWrapper = document.querySelector('.portfolio-slider-wrapper');
         const slider = document.querySelector('.portfolio-scroll');
