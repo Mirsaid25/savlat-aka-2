@@ -8,6 +8,24 @@
     <meta name="description"
         content="40 kunlik Biznes SMM premium kursi — Instagramda biznesni noldan natijagacha rivojlantiring. 500 000 so'm chegirma. Ro'yxatdan o'ting.">
 
+    <script>
+        (function () {
+            try {
+                if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            } catch (_) { }
+
+            function scrollToTopIfNoHash() {
+                if (location.hash) return;
+                try { window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); } catch (_) { window.scrollTo(0, 0); }
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
+
+            window.addEventListener('pageshow', scrollToTopIfNoHash);
+            window.addEventListener('load', scrollToTopIfNoHash);
+        })();
+    </script>
+
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
