@@ -35,8 +35,10 @@
     <!-- Meta Pixel Code -->
     <script>
         !function (f, b, e, v, n, t, s) {
-            if (f.fbq) return; n = f.fbq = function () { n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
             t.src = v; s = b.getElementsByTagName(e)[0];
@@ -826,8 +828,13 @@
                 font-size: 20px;
             }
 
-            .portfolio-arrow-left { left: -10px; }
-            .portfolio-arrow-right { right: -10px; }
+            .portfolio-arrow-left {
+                left: -10px;
+            }
+
+            .portfolio-arrow-right {
+                right: -10px;
+            }
         }
 
         /* ================= БЛОК 5: НОВАЯ ФОРМА РЕГИСТРАЦИИ ================= */
@@ -1151,10 +1158,16 @@
 
         <div class="video-grid">
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/5NeEa2kqdL0?si=NhNmXDBTmy_rJOqZ" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/5NeEa2kqdL0?si=NhNmXDBTmy_rJOqZ" loading="lazy"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/UBxi8g_Fg4k?si=v-SXqL579_4lm8PB" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/UBxi8g_Fg4k?si=v-SXqL579_4lm8PB" loading="lazy"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </div>
 
@@ -1288,9 +1301,13 @@
         const form = document.getElementById('leadForm');
         const submitBtn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
-            if (phoneInput.value.length < 19) { alert('Iltimos, to\'liq telefon raqamini kiriting.'); return; }
+
+            if (phoneInput.value.length < 19) {
+                alert("Iltimos, to'liq telefon raqamini kiriting.");
+                return;
+            }
 
             submitBtn.innerHTML = 'Yuborilmoqda...';
             submitBtn.disabled = true;
@@ -1316,24 +1333,56 @@
 🏢 <b>Nomi/Holati:</b> ${data.businessName}
 🎓 <b>Kim o'qiydi:</b> ${data.whoStudies}
 📈 <b>SMM tajriba:</b> ${data.smmExperience}
-            `;
+    `;
 
-            fetch(`https://api.telegram.org/bot8654798388:AAFoQd2chuMr-f0iZemEpgiVzX6_hKrAdQY/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: '-1003775578581', text: text, parse_mode: 'HTML' })
-            })
-                .then(res => res.json())
-                .then(resData => {
-                    if (resData.ok) {
-                        window.location.href = 'thank-you.html';
-                    } else { alert('Yuborishda xato yuz berdi. (Bot Token va Chat ID larni tekshiring)'); }
-                })
-                .catch(err => { alert('Tarmoq xatosi! Internetingizni tekshiring.'); console.error(err); })
-                .finally(() => {
-                    submitBtn.innerHTML = 'Ro’yxatdan o’tish';
-                    submitBtn.disabled = false;
-                });
+            // Функция отправки с повтором при ошибке
+            async function sendToTelegram(attempt = 1) {
+                try {
+                    const res = await fetch(
+                        `https://api.telegram.org/bot8654798388:AAFoQd2chuMr-f0iZemEpgiVzX6_hKrAdQY/sendMessage`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: '-1003775578581',
+                                text: text,
+                                parse_mode: 'HTML'
+                            })
+                        }
+                    );
+                    const result = await res.json();
+
+                    if (result.ok) {
+                        return true;
+                    } else {
+                        throw new Error('Telegram API error: ' + JSON.stringify(result));
+                    }
+                } catch (err) {
+                    console.error(`Попытка ${attempt} не удалась:`, err);
+                    if (attempt < 3) {
+                        // Ждём 1 секунду и пробуем снова
+                        await new Promise(r => setTimeout(r, 1000));
+                        return sendToTelegram(attempt + 1);
+                    }
+                    return false;
+                }
+            }
+
+            const success = await sendToTelegram();
+
+            if (success) {
+                // Пиксель срабатывает ТОЛЬКО после успешной отправки
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead');
+                }
+                // sessionStorage защищает от повторного срабатывания при back/forward
+                sessionStorage.setItem('lead_sent', '1');
+                window.location.href = 'thank-you.html';
+            } else {
+                alert("Xato yuz berdi. Iltimos qayta urinib ko'ring.");
+                submitBtn.innerHTML = "Ro'yxatdan o'tish";
+                submitBtn.disabled = false;
+            }
         });
 
         const portfolioWrapper = document.querySelector('.portfolio-slider-wrapper');
